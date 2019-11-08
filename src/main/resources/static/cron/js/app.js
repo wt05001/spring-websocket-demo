@@ -13,7 +13,8 @@ function setConnected(connected) {
 }
 
 function connect() {
-    var socket = new SockJS('/ws');
+    var socket = new SockJS('http://127.0.0.1:8080/webSocketEndPoint');
+    // var socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         setConnected(true);
@@ -33,7 +34,7 @@ function disconnect() {
 }
 
 function showContent(body) {
-    $("#notice").html("<tr><td>" + body.content + "</td> <td>"+body.jobId+"</td></tr>");
+    $("#notice").html("<tr><td>" + body.content + "</td> <td>"+body.jobId+"</td><td>"+new Date(body.time).toLocaleString()+"</td></tr>");
 }
 
 $(function() {
