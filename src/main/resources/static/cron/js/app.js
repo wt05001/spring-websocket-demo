@@ -13,8 +13,8 @@ function setConnected(connected) {
 }
 
 function connect() {
-    var socket = new SockJS('http://127.0.0.1:8080/webSocketEndPoint');
-    // var socket = new SockJS('/ws');
+    // var socket = new SockJS('http://127.0.0.1:8080/webSocketEndPoint');
+    var socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         setConnected(true);

@@ -1,8 +1,12 @@
 package com.example.websocketdemo.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.*;
+
+import com.example.websocketdemo.intecepter.HttpHandShakeInterceptor;
+import com.example.websocketdemo.intecepter.SocketChannelInterceptor;
 
 
 @Configuration
@@ -11,7 +15,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws").withSockJS();
+        registry.addEndpoint("/ws").addInterceptors(new HttpHandShakeInterceptor()).setAllowedOrigins("*").withSockJS();
     }
 
     @Override
@@ -29,5 +33,15 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 .setClientLogin("guest")
                 .setClientPasscode("guest");
         */
+    }
+
+    @Override
+    public void configureClientInboundChannel(ChannelRegistration registration) {
+        registration.interceptors(new SocketChannelInterceptor());
+    }
+
+    @Override
+    public void configureClientOutboundChannel(ChannelRegistration registration) {
+        registration.interceptors(new SocketChannelInterceptor());
     }
 }

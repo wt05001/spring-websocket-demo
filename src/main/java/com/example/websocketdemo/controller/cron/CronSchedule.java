@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.websocketdemo.controller.coin;
+package com.example.websocketdemo.controller.cron;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,7 +26,7 @@ import com.example.websocketdemo.service.WebSocketService;
  *定时任务向客服端发送消息
  */
 @Component
-public class CoinSchedule {
+public class CronSchedule {
 
     @Autowired
     private WebSocketService ws;
@@ -36,7 +36,7 @@ public class CoinSchedule {
      */
     @Scheduled(fixedRate = 1000 * 1)
     public void coinInfo() {
-        System.out.println("定时任务-------------------------");
+//        System.out.println("定时任务-------------------------");
         ws.sendCoinInfo();
     }
 }
